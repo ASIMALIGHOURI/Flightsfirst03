@@ -43,7 +43,8 @@ export async function onRequestPost(context) {
   // Honeypot check (defense in depth — FormSubmit also checks this, but we
   // can reject earlier and avoid ever calling Turnstile/FormSubmit for
   // obvious bots).
-  const honey = formData.get("_honey");
+  // Accept multiple common honeypot field names so backend matches frontend.
+  const honey = (formData.get("_honey") || formData.get("user_website_url") || formData.get("website"));
   if (honey) {
     // Pretend success so bots don't learn the honeypot was detected.
     return jsonResponse({ success: true }, 200);
@@ -64,17 +65,19 @@ export async function onRequestPost(context) {
   }
 
   // ---- Verify the token with Cloudflare ----
-  const verifyBody = new FormData();
+  // Use application/x-www-form-urlencoded as recommended in Cloudflare docs.
+  const verifyBody = new URLSearchParams();
   verifyBody.append("secret", env.TURNSTILE_SECRET_KEY);
   verifyBody.append("response", token);
-  var ip = request.headers.get("CF-Connecting-IP");
+  const ip = request.headers.get("CF-Connecting-IP");
   if (ip) verifyBody.append("remoteip", ip);
 
   let verifyJson;
   try {
     const verifyRes = await fetch(TURNSTILE_VERIFY_URL, {
       method: "POST",
-      body: verifyBody,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: verifyBody.toString(),
     });
     verifyJson = await verifyRes.json();
   } catch (err) {
