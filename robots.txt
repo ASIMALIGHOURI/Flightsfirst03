@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://www.flightsfirst.co.uk/sitemap.xml
