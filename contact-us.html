@@ -9,8 +9,8 @@
 <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/archivo-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="preload" href="assets/style.min.css?v=2" as="style">
-<link rel="stylesheet" href="assets/style.min.css?v=2">
+<link rel="preload" href="assets/style.min.css?v=5" as="style">
+<link rel="stylesheet" href="assets/style.min.css?v=5">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -248,7 +248,7 @@
         <div class="lead-form-fields" id="leadFormFields">
           <div class="field-row field-row-keep2">
             <div class="field">
-              <label for="c-trip">Trip type</label>
+              <label for="c-trip" class="visually-hidden">Trip type</label>
               <div class="select-wrap">
                 <select id="c-trip" name="trip_type">
                   <option>Round Trip</option>
@@ -258,7 +258,7 @@
               </div>
             </div>
             <div class="field">
-              <label for="c-pax">Passengers &amp; class</label>
+              <label for="c-pax" class="visually-hidden">Passengers &amp; class</label>
               <div class="pax-class-group">
                 <svg class="icon" aria-hidden="true"><use href="#icon-person"></use></svg>
                 <select id="c-pax" name="passengers" aria-label="Number of passengers">
@@ -281,36 +281,36 @@
 
           <div class="swap-row">
             <div class="field">
-              <label for="c-from">From*</label>
+              <label for="c-from" class="visually-hidden">From*</label>
               <input id="c-from" name="from" type="text" placeholder="London (LHR)" required>
             </div>
             <button type="button" class="swap-btn" aria-label="Swap departure and destination">
               <svg class="icon" aria-hidden="true"><use href="#icon-swap"></use></svg>
             </button>
             <div class="field">
-              <label for="c-to">To*</label>
+              <label for="c-to" class="visually-hidden">To*</label>
               <input id="c-to" name="to" type="text" placeholder="Destination" required>
             </div>
           </div>
 
-          <div class="field-row field-row-keep2">
+          <div class="field-row field-row-dates">
             <div class="field">
-              <label for="c-depart">Depart</label>
-              <input id="c-depart" name="depart_date" type="date">
+              <label for="c-depart" class="visually-hidden">Depart</label>
+              <div class="date-input-wrap"><span class="date-inline-label">Depart</span><input id="c-depart" name="depart_date" type="date"><svg class="icon date-icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></div>
             </div>
             <div class="field">
-              <label for="c-return">Return</label>
-              <input id="c-return" name="return_date" type="date">
+              <label for="c-return" class="visually-hidden">Return</label>
+              <div class="date-input-wrap"><span class="date-inline-label">Return</span><input id="c-return" name="return_date" type="date"><svg class="icon date-icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></div>
             </div>
           </div>
 
           <div class="field">
-            <label for="c-email">Email *</label>
+            <label for="c-email" class="visually-hidden">Email *</label>
             <input id="c-email" name="email" type="email" placeholder="you@example.com" required>
           </div>
 
           <div class="field">
-            <label for="c-phone">Phone number *</label>
+            <label for="c-phone" class="visually-hidden">Phone number *</label>
             <div class="phone-input-group">
               <span class="phone-prefix">🇬🇧 +44</span>
               <input id="c-phone" name="phone" type="tel" placeholder="7xxx xxxxxx" required>
@@ -318,7 +318,7 @@
           </div>
 
           <div class="field">
-            <label for="c-name">Your name (optional)</label>
+            <label for="c-name" class="visually-hidden">Your name (optional)</label>
             <input id="c-name" name="name" type="text" placeholder="Jane Smith">
           </div>
 
@@ -465,8 +465,7 @@
   </div>
 </div>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstile&render=explicit" async defer></script>
-<script src="assets/script.min.js?v=2" defer></script>
+<script src="assets/script.min.js?v=5" defer></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
