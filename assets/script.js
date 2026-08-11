@@ -127,7 +127,15 @@
      IMPORTANT (one-time step): the very first submission after this site
      goes live triggers an activation email to info@flightsfirst.co.uk —
      someone must click "Activate Form" in that email once, after which every
-     future submission is delivered straight to the inbox automatically. */
+     future submission is delivered straight to the inbox automatically.
+     Check spam/junk too — first-time senders sometimes land there.
+
+     RELIABILITY: if the fetch()-based AJAX submission fails for any reason
+     (CORS, network hiccup, FormSubmit quirk on a brand-new sender, etc.) we
+     fall back to a plain native form submission. A native POST is not
+     subject to any CORS/fetch restriction — the browser just navigates to
+     FormSubmit's own confirmation page — so it always gets through even if
+     the fancy inline-success experience can't be used for that attempt. */
   function initLeadForms() {
     document.querySelectorAll("form.lead-form").forEach(function (form) {
       form.addEventListener("submit", function (e) {
@@ -145,7 +153,26 @@
           submitBtn.textContent = "Sending…";
         }
 
-        fetch(form.action, {
+        // FormSubmit needs its dedicated /ajax/ endpoint for fetch()-based
+        // submissions (JSON response, proper CORS headers). The plain
+        // endpoint in the form's `action` attribute is for native/no-JS
+        // form posts only — calling it via fetch can fail silently.
+        var endpoint = form.action.replace(
+          "formsubmit.co/",
+          "formsubmit.co/ajax/"
+        );
+
+        function fallbackToNativeSubmit() {
+          // form.submit() (unlike a submit button click) does NOT dispatch a
+          // new "submit" event, so this cannot loop back into this handler.
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalLabel;
+          }
+          HTMLFormElement.prototype.submit.call(form);
+        }
+
+        fetch(endpoint, {
           method: "POST",
           headers: { Accept: "application/json" },
           body: new FormData(form),
@@ -164,11 +191,7 @@
             if (success) success.classList.add("active");
           })
           .catch(function () {
-            if (errorBox) errorBox.classList.add("visible");
-            if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = originalLabel;
-            }
+            fallbackToNativeSubmit();
           });
       });
     });
@@ -452,52 +475,107 @@
      Loaded with render=explicit so we control exactly when/how each widget
      renders. Every form's submit button ships with `disabled` in the HTML
      as a safe default (fails closed if JS or Turnstile fails to load) and
-     is only re-enabled once that form's widget returns a valid token. */
-  function renderTurnstileWidgets() {
-    if (typeof turnstile === "undefined") return;
-    document.querySelectorAll(".cf-turnstile").forEach(function (container) {
-      if (container.getAttribute("data-rendered") === "true") return;
-      var form = container.closest("form");
-      var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
-      var tokenField = form ? form.querySelector('input[name="cf-turnstile-response"]') : null;
+     is only re-enabled once that form's widget returns a valid token.
 
-      turnstile.render(container, {
-        sitekey: container.getAttribute("data-sitekey"),
-        callback: function (token) {
-          if (tokenField) tokenField.value = token;
-          if (submitBtn) submitBtn.disabled = false;
-        },
-        "expired-callback": function () {
-          if (tokenField) tokenField.value = "";
-          if (submitBtn) submitBtn.disabled = true;
-        },
-        "error-callback": function () {
-          if (tokenField) tokenField.value = "";
-          if (submitBtn) submitBtn.disabled = true;
-        },
-      });
-      container.setAttribute("data-rendered", "true");
+     PERFORMANCE: widgets are rendered lazily via IntersectionObserver —
+     only once their form scrolls near the viewport — rather than all at
+     once on page load. Turnstile's iframe/script work is real main-thread
+     cost, and most visitors never scroll to some of these forms at all. */
+  var turnstileReady = false;
+  var turnstilePending = [];
+
+  function renderOneTurnstile(container) {
+    if (!container || container.getAttribute("data-rendered") === "true") return;
+    var form = container.closest("form");
+    var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+    var tokenField = form ? form.querySelector('input[name="cf-turnstile-response"]') : null;
+
+    turnstile.render(container, {
+      sitekey: container.getAttribute("data-sitekey"),
+      callback: function (token) {
+        if (tokenField) tokenField.value = token;
+        if (submitBtn) submitBtn.disabled = false;
+      },
+      "expired-callback": function () {
+        if (tokenField) tokenField.value = "";
+        if (submitBtn) submitBtn.disabled = true;
+      },
+      "error-callback": function () {
+        if (tokenField) tokenField.value = "";
+        if (submitBtn) submitBtn.disabled = true;
+      },
     });
+    container.setAttribute("data-rendered", "true");
+  }
+
+  function requestTurnstileRender(container) {
+    loadTurnstileScript();
+    if (turnstileReady) {
+      renderOneTurnstile(container);
+    } else {
+      turnstilePending.push(container);
+    }
   }
 
   // Cloudflare calls this global function once its script has loaded
-  // (see the ?onload=onloadTurnstile param on the <script> tag).
+  // (see the ?onload=onloadTurnstile param below).
   window.onloadTurnstile = function () {
-    renderTurnstileWidgets();
+    turnstileReady = true;
+    turnstilePending.forEach(renderOneTurnstile);
+    turnstilePending = [];
   };
 
+  var turnstileScriptInjected = false;
+  function loadTurnstileScript() {
+    // PERFORMANCE: the Turnstile script (~third-party, non-trivial parse/
+    // exec cost) is only fetched once a form actually needs it, instead of
+    // unconditionally on every page load — most visitors browsing content
+    // never reach a form at all, so this avoids that cost entirely for them.
+    if (turnstileScriptInjected) return;
+    turnstileScriptInjected = true;
+    var script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstile&render=explicit";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
   function initTurnstile() {
-    // The fare modal's widget lives inside a hidden overlay when the page
-    // loads, so also (re)render whenever the modal opens.
+    var containers = document.querySelectorAll(".cf-turnstile");
+    if (!containers.length) return;
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              requestTurnstileRender(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "600px 0px" } // preload comfortably before it's actually visible
+      );
+      containers.forEach(function (c) {
+        observer.observe(c);
+      });
+    } else {
+      // No IntersectionObserver support — fall back to rendering everything.
+      containers.forEach(requestTurnstileRender);
+    }
+
+    // The fare modal's widget lives inside a hidden (display:none) overlay,
+    // so it may never intersect the viewport via the observer above. Render
+    // it explicitly the moment the modal opens instead.
     var overlay = document.getElementById("fareModal");
     if (overlay) {
-      var observer = new MutationObserver(function () {
-        if (overlay.classList.contains("open")) renderTurnstileWidgets();
+      var modalObserver = new MutationObserver(function () {
+        if (overlay.classList.contains("open")) {
+          var modalWidget = overlay.querySelector(".cf-turnstile");
+          if (modalWidget) requestTurnstileRender(modalWidget);
+        }
       });
-      observer.observe(overlay, { attributes: true, attributeFilter: ["class"] });
+      modalObserver.observe(overlay, { attributes: true, attributeFilter: ["class"] });
     }
-    // In case the Turnstile script already finished loading before this ran
-    if (typeof turnstile !== "undefined") renderTurnstileWidgets();
   }
 
   document.addEventListener("DOMContentLoaded", function () {
