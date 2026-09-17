@@ -16,7 +16,7 @@
  * from the environment at request time via `context.env.TURNSTILE_SECRET_KEY`.
  */
 
-const LEAD_EMAIL = "info@flightsfirst.co.uk";
+const LEAD_EMAIL = "info@luxfly.co.uk";
 const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${LEAD_EMAIL}`;
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
