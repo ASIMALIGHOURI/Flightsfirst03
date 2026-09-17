@@ -123,9 +123,9 @@
 
   /* ---------------- Lead / callback form ---------------- */
   /* Delivery: forms POST to FormSubmit (https://formsubmit.co) which relays
-     submissions to info@flightsfirst.co.uk with no backend server required.
+     submissions to info@luxfly.co.uk with no backend server required.
      IMPORTANT (one-time step): the very first submission after this site
-     goes live triggers an activation email to info@flightsfirst.co.uk —
+     goes live triggers an activation email to info@luxfly.co.uk —
      someone must click "Activate Form" in that email once, after which every
      future submission is delivered straight to the inbox automatically.
      Check spam/junk too — first-time senders sometimes land there.
@@ -593,6 +593,16 @@
     initCookieBanner();
     initHeaderScroll();
     initReveal();
-    initCountUp();
+
+    // PERFORMANCE: stat-counter animation only affects a below-the-fold
+    // trust-stats block — nothing the visitor can see before scrolling.
+    // Deferring it off the critical DOMContentLoaded path avoids adding to
+    // main-thread work during the initial paint/LCP window; requestIdleCallback
+    // runs it as soon as the browser is idle, with a setTimeout fallback for
+    // browsers that don't support it. (initReveal() stays synchronous above
+    // since it also covers the above-the-fold hero form — deferring that one
+    // would risk a visible flash.)
+    var deferNonCritical = window.requestIdleCallback || function (cb) { window.setTimeout(cb, 200); };
+    deferNonCritical(initCountUp);
   });
 })();

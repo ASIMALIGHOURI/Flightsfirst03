@@ -259,6 +259,7 @@ p{margin:0 0 1em;}
 .hero-microtrust li{display:flex;align-items:center;gap:7px;}
 .hero-microtrust svg{flex:none;}
 
+
 /* Lead form card */
 .lead-card{background:#fff;color:var(--ink);border-radius:18px;padding:26px;box-shadow:var(--shadow-lg);position:relative;z-index:1;}
 .lead-card h2{font-size:20px;margin-bottom:4px;}
