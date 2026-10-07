@@ -9,11 +9,12 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#071a3d">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/archivo-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/harare/hero-a330-mobile.webp" media="(max-width:700px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/harare/hero-a330-desktop.webp" media="(min-width:701px)" fetchpriority="high">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKW4KT3J');</script>
+<link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-800.woff2" as="font" type="font/woff2" crossorigin>
+<script>window.dataLayer=window.dataLayer||[];dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});(function(){var done=false;function go(){if(done)return;done=true;var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=GTM-KKW4KT3J';document.head.appendChild(j)}
+window.addEventListener('load',function(){setTimeout(go,50)});['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})});setTimeout(go,6000)})();</script>
 <style>
 @font-face{font-family:Archivo;font-weight:700;font-display:swap;src:url('assets/fonts/archivo-700.woff2') format('woff2')}
 @font-face{font-family:Archivo;font-weight:800;font-display:swap;src:url('assets/fonts/archivo-800.woff2') format('woff2')}
@@ -46,7 +47,7 @@ h1,h2,h3{font-family:Archivo,Inter,sans-serif;line-height:1.12;letter-spacing:-.
 header.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy)}
-.logo b{font:800 22px/1 Archivo,sans-serif;letter-spacing:-.02em}
+.logo b{font:800 21px/1 Archivo,sans-serif;letter-spacing:-.02em;white-space:nowrap}
 .logo b span{color:var(--blue)}
 .logo small{display:block;font:500 11px/1.2 Inter,sans-serif;color:var(--mut);margin-top:3px}
 .nav{display:flex;gap:26px}
@@ -56,12 +57,13 @@ header.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;t
 .top .num{display:inline}
 .top .btn .ic{width:18px;height:18px}
 /* hero */
-.hero{position:relative;color:#fff;background:#0a348c;isolation:isolate}
+.hero{position:relative;color:#fff;background:#0a1d44 url(data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAwCdASoSABoAPwFurk6rJqSiMAgBYCAJZQC7ABKSAn5vDN2gANQfiDrbr2KMIvW7aMghMx+EaC3E8y0n0ERZV4gdeTn/NAA=) center/cover no-repeat;isolation:isolate}
+@media(min-width:701px){.hero{background-image:url(data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQBACdASogABIAPwFsq06rJiOiMAgBYCAJYwCxJUAAhXnk4kr69OF4sAD8SLSelN1Kj/iux8nmjw3jyLBal3P22WO2yXbF43hq+diq6Vv10TG3C2V+AJQgAAA=)}}
 .hero>picture,.hero>picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,18,43,.86) 0%,rgba(7,26,61,.5) 50%,rgba(7,26,61,.06) 100%),linear-gradient(0deg,rgba(4,18,43,.7) 0%,rgba(4,18,43,0) 38%)}
 .hero .wrap{padding-top:34px;padding-bottom:40px}
 .copy{max-width:640px}
-.bag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:9px 16px 9px 12px;border-radius:999px;font-weight:600;font-size:14.5px;margin-bottom:20px}
+.bag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:9px 16px 9px 12px;border-radius:999px;font-weight:600;font-size:14.5px;margin-bottom:20px}
 .bag .ic{width:20px;height:20px}
 .bag b{font-weight:700}
 .hero h1{font-weight:800;font-size:clamp(30px,4.1vw,46px);margin-bottom:14px;text-wrap:balance}
@@ -196,13 +198,13 @@ footer .logo small{color:#9fb3d9}
 /* sticky mobile call */
 .sticky{display:none}
 /* cookie */
-#cookieBanner{position:fixed;left:16px;bottom:16px;z-index:60;max-width:380px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 12px 40px rgba(2,10,30,.25);font-size:13px;color:var(--mut)}
+#cookieBanner{position:fixed;left:16px;bottom:16px;z-index:60;max-width:560px;min-height:58px;display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:0 12px 40px rgba(2,10,30,.25);font-size:12.5px;line-height:1.4;color:var(--mut)}
 #cookieBanner[hidden]{display:none}
-#cookieBanner div{display:flex;gap:8px;margin-top:10px}
-#cookieBanner button{font:600 13px Inter;padding:8px 14px;border-radius:8px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+#cookieBanner div{display:flex;gap:8px;flex:none}
+#cookieBanner button{font:600 12.5px Inter;padding:8px 12px;border-radius:8px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
 #cookieBanner #cookieAccept{background:var(--blue);border-color:var(--blue);color:#fff}
 /* popup */
-#pop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(4,18,43,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;transition:opacity .2s}
+#pop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(4,18,43,.62);opacity:0;transition:opacity .2s}
 #pop[hidden]{display:none}
 #pop.in{opacity:1}
 .pop-card{position:relative;width:100%;max-width:420px;background:#fff;border-radius:24px;overflow:hidden;text-align:center;box-shadow:0 30px 80px rgba(2,10,30,.5);transform:translateY(14px) scale(.98);transition:transform .25s}
@@ -234,6 +236,31 @@ footer .logo small{color:#9fb3d9}
 footer .cols{grid-template-columns:1fr 1fr}
 footer .cols>div:first-child{grid-column:1/-1}
 }
+
+.from{display:block;margin-right:6px}
+.fp small{display:block;font-size:13px;color:#c9d8f3;margin-bottom:6px}
+.fr{display:flex;gap:10px}
+.fp .fo{display:flex!important;flex-direction:column;margin:0!important;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:8px 14px;}
+.fp .fo b{font:800 30px/1 Archivo,sans-serif}
+.fp .fo i{display:block}
+.fo i{font:500 12.5px Inter,sans-serif;font-style:normal;color:#c9d8f3;margin-top:3px}
+.fp em{display:block;font-style:normal;font-size:12.5px;color:#c9d8f3;margin-top:7px}
+.fdisc{font-size:14px;color:#cfdcf5;border:1px solid #1f3a6e;background:#0a1d44;border-radius:12px;padding:14px 16px}
+.fdisc strong{display:inline}
+@media(min-width:981px){
+.cta .btn-line{display:none}
+.row1{display:grid;grid-template-columns:1fr 1fr}
+.row1 .seg{grid-column:1/-1;width:100%}
+.row1 .seg label{flex:1;text-align:center}
+.row1 select{width:100%;min-width:0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:start;padding-top:44px;padding-bottom:56px}
+.copy{max-width:none}
+.quote{margin-top:0;padding:24px}
+.grid{grid-template-columns:1fr 1fr}
+.grid3{grid-template-columns:1fr 1fr}
+.grid3 .fld:nth-child(2){grid-column:1/-1;order:3}
+.hero::before{background:linear-gradient(90deg,rgba(4,18,43,.82) 0%,rgba(7,26,61,.5) 55%,rgba(7,26,61,.3) 100%),linear-gradient(0deg,rgba(4,18,43,.6) 0%,rgba(4,18,43,0) 35%)}
+}
 @media(max-width:360px){.grid{grid-template-columns:1fr}}
 @media(max-width:700px){
 body{font-size:15.5px}
@@ -241,6 +268,8 @@ body{font-size:15.5px}
 .disc{font-size:11.5px;padding:7px 12px}
 .top .wrap{height:60px}
 .logo small{display:none}
+.logo b{font-size:18px}
+.fo b{font-size:26px}
 .top .btn{padding:11px 14px}
 .top .num{display:none}
 .top .num2{display:inline!important}
@@ -266,7 +295,7 @@ section{padding:48px 0}
 .tr b{font-size:13.5px}.tr span{font-size:12px}
 footer{padding-bottom:110px}
 footer .cols{grid-template-columns:1fr 1fr}
-#cookieBanner{left:10px;right:10px;bottom:76px;max-width:none}
+#cookieBanner{left:8px;right:8px;bottom:74px;max-width:none;min-height:68px;padding:8px 10px;gap:8px;font-size:11.5px}
 .sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 24px rgba(2,10,30,.12)}
 .sticky .btn{width:100%;padding:16px;font-size:17px}
 }
@@ -301,12 +330,10 @@ footer .cols{grid-template-columns:1fr 1fr}
 <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
 </defs></svg>
 
-<div class="disc"><strong>We are not Air Zimbabwe.</strong> Flightsfirst is an independent travel agency (Safa &amp; Marwa Tours Ltd) selling Air Zimbabwe tickets. This is not the airline's official website.</div>
-
 <header class="top"><div class="wrap">
-<a class="logo" href="zimbabwe-airlines-flights.html" aria-label="Flightsfirst home">
+<a class="logo" href="zimbabwe-airlines-flights.html" aria-label="Air Zimbabwe Flights home">
 <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4C93F5"/><stop offset="1" stop-color="#0B1F3A"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#lg)"/><path d="M10 22.5 30 11l-6 18-5-6.5-9-0z" fill="#fff"/><path d="m19 22.5 11-11.5" stroke="#0B1F3A" stroke-width="1.6" stroke-linecap="round"/></svg>
-<span><b>flights<span>first</span></b><small>Independent Travel Agency · UK</small></span></a>
+<span><b>Air Zimbabwe <span>Flights</span></b><small>Independent Travel Agency · UK</small></span></a>
 <nav class="nav" aria-label="Page"><a href="#fares">Fares</a><a href="#how">How it works</a><a href="#baggage">Baggage</a><a href="#flight-info">Flight info</a><a href="#faq">FAQs</a></nav>
 <a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg><span class="num">0203 981 0232</span><span class="num2" style="display:none">Call</span></a>
 </div></header>
@@ -321,14 +348,15 @@ footer .cols{grid-template-columns:1fr 1fr}
 <div class="copy">
 <div class="bag"><svg class="ic"><use href="#i-bag"/></svg><span><b>2 PC</b> baggage allowance · <b>23 kg</b> each</span></div>
 <h1>Book <span data-kw>Direct Flights Tickets London Gatwick to Harare, Zimbabwe (HRE)</span></h1>
-<p class="lead">Fly nonstop with Air Zimbabwe from Gatwick South Terminal. About 10 hours, no stopover, and a real person on the phone to book it.</p>
+<p class="lead">Skip the connection in Johannesburg or Addis. Air Zimbabwe flies Gatwick South to Harare nonstop in about 10 hours, and one call gets you live seats and the full price before you pay anything.</p>
 <ul class="pts">
-<li><svg class="ic"><use href="#i-check"/></svg>Nonstop LGW to HRE, Monday, Thursday and Saturday</li>
-<li><svg class="ic"><use href="#i-check"/></svg>Quote confirmed by a flight expert before you pay</li>
+<li><svg class="ic"><use href="#i-check"/></svg>Nonstop every Monday, Thursday and Saturday evening</li>
+<li><svg class="ic"><use href="#i-check"/></svg>2 x 23 kg checked bags plus 10 kg cabin bag in Economy</li>
+<li><svg class="ic"><use href="#i-check"/></svg>Full price and baggage confirmed before you pay</li>
 <li><svg class="ic"><use href="#i-check"/></svg>ATOL 11038 · IATA accredited agent</li>
 </ul>
 <div class="cta">
-<div class="from"><div><small>Fares from</small><br><b>£490</b><span>one way · £675 return · subject to availability</span></div></div>
+<div class="from"><div class="fp"><small>Fares from</small><div class="fr"><span class="fo"><b>£490</b><i>one way</i></span><span class="fo"><b>£675</b><i>return</i></span></div><em>per person, subject to availability</em></div></div>
 <a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg>Call 0203 981 0232</a>
 <a class="btn btn-line" href="#quote">Get a free quote</a>
 </div>
@@ -490,7 +518,8 @@ footer .cols{grid-template-columns:1fr 1fr}
 <div><h4>Legal</h4><a href="privacy-policy.html">Privacy Policy</a><a href="terms-conditions.html">Terms &amp; Conditions</a><a href="cancellation-refund-policy.html">Cancellation &amp; Refund Policy</a><a href="cookie-policy.html">Cookie Policy</a></div>
 </div>
 <div class="legal">
-<p><strong>Disclaimer:</strong> We are not Air Zimbabwe. Flightsfirst is an independent travel agency operated by Safa &amp; Marwa Tours Ltd. This page promotes the sale of Air Zimbabwe flights and is not the airline's official website. All airline names and trademarks belong to their respective owners and are used only to identify the flights we sell.</p>
+<p class="fdisc"><strong>We are not Air Zimbabwe.</strong> Flightsfirst is an independent travel agency (Safa &amp; Marwa Tours Ltd) selling Air Zimbabwe tickets. This is not the airline's official website.</p>
+<p>This page promotes the sale of Air Zimbabwe flights. All airline names and trademarks belong to their respective owners and are used only to identify the flights we sell.</p>
 <p>Fares shown (from £490 one way and £675 return from London Gatwick) are Air Zimbabwe's published starting prices, per person, and are subject to availability, taxes and the fare conditions at the time of booking. Other destination fares are starting prices in USD as listed by Air Zimbabwe. Flight schedules and baggage allowances can change and are confirmed on your quote.</p>
 <p>Safa &amp; Marwa Tours Ltd · ATOL 11038 · IATA 91201574 · &copy; 2026 All rights reserved.</p>
 </div>
@@ -498,7 +527,7 @@ footer .cols{grid-template-columns:1fr 1fr}
 
 <div class="sticky"><a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg>Call Now 0203 981 0232</a></div>
 
-<div id="cookieBanner" hidden role="dialog" aria-label="Cookie notice"><p>We use cookies to improve this site and measure adverts. See our <a href="cookie-policy.html">Cookie Policy</a>.</p><div><button type="button" id="cookieDecline">Decline</button><button type="button" id="cookieAccept">Accept</button></div></div>
+<div id="cookieBanner" role="dialog" aria-label="Cookie notice"><p>We use cookies to improve this site and measure adverts. See our <a href="cookie-policy.html">Cookie Policy</a>.</p><div><button type="button" id="cookieDecline">Decline</button><button type="button" id="cookieAccept">Accept</button></div></div>
 
 <div id="pop" hidden role="dialog" aria-modal="true" aria-labelledby="popT" data-close>
 <div class="pop-card" onclick="event.stopPropagation()">
@@ -520,6 +549,6 @@ footer .cols{grid-template-columns:1fr 1fr}
 </div>
 </div>
 
-<script src="assets/harare/lp.js?v=2" defer></script>
+<script src="assets/harare/lp.js?v=5" defer></script>
 </body>
 </html>
