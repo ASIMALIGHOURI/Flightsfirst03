@@ -185,6 +185,7 @@ footer h3{color:#fff;font:600 15px Inter;margin-bottom:12px}
 footer a{color:#9fb3d9;text-decoration:none;display:block;padding:3px 0}
 footer a:hover{color:#fff}
 footer .logo{color:#fff;margin-bottom:12px}
+footer .logo b{color:#fff}
 footer .logo b span{color:#8dc0ff}
 footer .logo small{color:#9fb3d9}
 .legal{border-top:1px solid #1a2f58;padding-top:22px;font-size:12.5px;line-height:1.65}
@@ -193,7 +194,6 @@ footer .logo small{color:#9fb3d9}
 .badges{display:flex;gap:12px;align-items:center;margin-top:14px}
 .badges img{background:#fff;border-radius:8px;padding:4px}
 /* sticky mobile call */
-.sticky{display:none}
 /* cookie */
 #cookieBanner{position:fixed;left:16px;bottom:16px;z-index:60;max-width:560px;min-height:58px;display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:0 12px 40px rgba(2,10,30,.25);font-size:12.5px;line-height:1.4;color:var(--mut)}
 #cookieBanner[hidden]{display:none}
@@ -277,7 +277,7 @@ body{font-size:15.5px}
 .from{width:100%}
 .quote{padding:18px;margin-top:28px;border-radius:18px}
 .grid3{grid-template-columns:1fr}
-.grid .fld input[readonly]{font-size:13.5px;padding:0 8px}
+.grid .fld input[readonly]{font-size:12.5px;padding:0 7px;text-overflow:ellipsis}
 .row1 select{flex:1}
 .seg{width:100%}.seg label{flex:1;text-align:center}
 .cards{grid-template-columns:1fr 1fr;gap:10px}
@@ -293,8 +293,107 @@ section{padding:48px 0}
 footer{padding-bottom:110px}
 footer .cols{grid-template-columns:1fr 1fr}
 #cookieBanner{left:8px;right:8px;bottom:74px;max-width:none;min-height:68px;padding:8px 10px;gap:8px;font-size:11.5px}
-.sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 24px rgba(2,10,30,.12)}
-.sticky .btn{width:100%;padding:16px;font-size:17px}
+}
+
+/* ---- redesign: header, brand band, call-first hero ---- */
+:root{--lqm:url(data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACQAwCdASoSABoAPwFurk6rJqSiMAgBYCAJZQC7ABKSAn5vDN2gANQfiDrbr2KMIvW7aMghMx+EaC3E8y0n0ERZV4gdeTn/NAA=);--lqd:url(data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQBACdASogABIAPwFsq06rJiOiMAgBYCAJYwCxJUAAhXnk4kr69OF4sAD8SLSelN1Kj/iux8nmjw3jyLBal3P22WO2yXbF43hq+diq6Vv10TG3C2V+AJQgAAA=)}
+.top .wrap{height:66px}
+.logo{gap:10px}
+.logo b{font:800 23px/1 Archivo,sans-serif;letter-spacing:-.02em;color:var(--navy)}
+.logo b span{color:var(--blue)}
+.logo .lmark{width:40px;height:40px}
+.phone-pill{display:inline-flex;align-items:center;gap:10px;padding:5px 18px 5px 5px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none;font:800 18px/1 Archivo,sans-serif;box-shadow:0 6px 16px rgba(11,78,194,.3);transition:background .15s}
+.phone-pill:hover{background:var(--blue2)}
+.av{position:relative;width:38px;height:38px;flex:none}
+.av img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--sky);border:2px solid #fff}
+.av i{position:absolute;right:-1px;bottom:0;width:12px;height:12px;border-radius:50%;background:var(--ok);border:2px solid #fff}
+.brandband{background:var(--navy);color:#fff;text-align:center;padding:15px 0}
+.brandband p{font:800 clamp(24px,3.6vw,32px)/1.1 Archivo,sans-serif;letter-spacing:-.01em}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2}
+.onimg{display:contents}
+.callzone{display:flex;flex-direction:column}
+.route-pill{order:0;display:inline-block;align-self:flex-start;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 16px;font-weight:600;font-size:14.5px;margin-bottom:16px}
+.callzone .lead{order:1}
+.callzone .pts{order:2}
+.callrow{order:3;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.callrow .from{order:1}
+.callbox{order:2;max-width:430px;flex:1 1 320px}
+.nohold{font:700 15px/1.2 Inter,sans-serif;color:#dbe8ff;margin-bottom:8px}
+.bigcall{display:flex;align-items:center;justify-content:center;gap:14px;background:var(--blue);color:#fff;border-radius:999px;padding:12px 24px 12px 12px;font:800 clamp(26px,3vw,32px)/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.01em;box-shadow:0 12px 28px rgba(5,30,90,.55);border:2px solid rgba(255,255,255,.25);transition:background .15s,transform .15s}
+.bigcall:hover{background:var(--blue2)}
+.bigcall:active{transform:translateY(1px)}
+.bigcall .ph{width:50px;height:50px;border-radius:50%;border:3px solid rgba(255,255,255,.7);display:grid;place-items:center;flex:none}
+.bigcall .ph .ic{width:24px;height:24px}
+.hl{font:700 15px/1.2 Inter,sans-serif;color:#dbe8ff;margin-top:9px;text-align:center}
+.promo{display:none}
+.cbtab{position:fixed;right:0;top:52%;z-index:45;display:flex;align-items:center;gap:8px;background:var(--blue);color:#fff;text-decoration:none;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);padding:16px 10px;border-radius:0 14px 14px 0;font:700 14px/1 Inter,sans-serif;letter-spacing:.02em;box-shadow:-4px 6px 18px rgba(2,10,30,.3);opacity:0;pointer-events:none;transition:opacity .25s}
+.cbtab.show{opacity:1;pointer-events:auto}
+.cbtab .ic{width:18px;height:18px;transform:rotate(90deg)}
+.cbtab:hover{background:var(--blue2)}
+@media(min-width:981px){
+.hero .wrap{padding-top:40px}
+.route-pill,.nohold{display:none}
+.callzone .lead{order:1;margin-bottom:20px}
+.callrow{order:2;margin:0 0 22px;gap:22px}
+.callzone .pts{order:3;margin-bottom:0}
+.callbox{flex:none;max-width:none}
+.bigcall{white-space:nowrap;font-size:30px;padding:11px 28px 11px 11px}
+.hl{margin-top:8px;font-size:13.5px}
+.fp small{margin-bottom:4px}
+}
+@media(max-width:980px){
+.callbox{flex:1 1 100%;max-width:none}
+}
+@media(max-width:700px){
+.top .wrap{height:60px}
+.logo b{font-size:21px}
+.logo .lmark{width:36px;height:36px}
+.phone-pill{padding:4px 14px 4px 4px;font-size:16px;background:#fff;color:var(--navy);border:2px solid var(--blue);box-shadow:none}
+.phone-pill:hover{background:var(--sky)}
+.av{width:34px;height:34px}
+.brandband{padding:14px 0}
+.brandband p{font-size:26px}
+.hero{background:#fff;color:var(--ink)}
+.hero::before{display:none}
+.hero .wrap{padding:0 0 26px}
+.copy{max-width:none}
+.onimg{display:flex;flex-direction:column;justify-content:flex-end;position:relative;isolation:isolate;min-height:330px;padding:16px;background:#0a1d44 var(--lqm) center/cover no-repeat}
+.onimg::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,18,43,.1) 0%,rgba(4,18,43,.35) 45%,rgba(4,18,43,.88) 100%)}
+.hero picture img{object-position:60% 20%}
+.onimg .bag{align-self:flex-start;margin-bottom:12px}
+.hero h1{font-size:clamp(25px,7.4vw,32px);margin-bottom:0;color:#fff}
+.callzone{padding:0 16px}
+.route-pill{order:0;align-self:stretch;text-align:center;background:var(--navy);border:0;color:#fff;font-size:15.5px;padding:14px 16px;margin:16px 0 18px}
+.callrow{order:1;flex-direction:column;align-items:stretch;gap:16px;margin-bottom:18px}
+.callbox{flex:none;text-align:center}
+.nohold{font:800 21px/1.2 Archivo,sans-serif;color:var(--navy);margin-bottom:12px}
+.bigcall{font-size:clamp(28px,8.6vw,34px);padding:12px 20px 12px 12px;box-shadow:0 12px 26px rgba(11,78,194,.4);border:0}
+.bigcall .ph{width:52px;height:52px}
+.hl{font:800 20px/1.2 Archivo,sans-serif;color:var(--navy);margin-top:10px}
+.callrow .from{order:2;width:100%}
+.fp{text-align:center}
+.fp small,.fp em{color:var(--mut)}
+.fr{justify-content:center}
+.fp .fo{background:var(--sky);border:1px solid var(--line);color:var(--navy);flex:1;align-items:center}
+.fp .fo i{color:var(--mut)}
+.callzone .lead{order:2;color:var(--mut);font-size:15.5px;margin-bottom:16px}
+.callzone .pts{order:3;margin-bottom:6px}
+.pts li{color:var(--ink)}
+.pts .ic{color:var(--blue)}
+.quote{margin:8px 16px 0;background:var(--sky);box-shadow:none;border:1px solid var(--line)}
+.promo{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--navy);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.promo{padding-top:16px}
+.pc{position:relative;display:flex;align-items:center;gap:10px;background:linear-gradient(100deg,#cfe0fb 0%,#eef4ff 55%,#fff 100%);border-radius:16px;padding:7px 8px 7px 96px;min-height:66px}
+.cut{position:absolute;left:4px;bottom:0;width:92px;height:auto}
+.pt{flex:1;min-width:0;line-height:1.15}
+.pt small{display:block;font:600 12.5px/1.25 Inter,sans-serif;color:var(--ink)}
+.pt em{font-style:normal;background:var(--sky);color:var(--blue);font-weight:800;padding:1px 6px;border-radius:5px}
+.pt strong{display:block;font:800 24px/1.1 Archivo,sans-serif;color:var(--navy);margin-top:2px;white-space:nowrap}
+.rc{flex:none;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;box-shadow:0 6px 14px rgba(11,78,194,.4)}
+.rc .ic{width:22px;height:22px}
+.cbtab{top:46%}
+#cookieBanner{bottom:86px}
+footer{padding-bottom:120px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -328,34 +427,41 @@ footer .cols{grid-template-columns:1fr 1fr}
 </defs></svg>
 
 <header class="top"><div class="wrap">
-<a class="logo" href="zimbabwe-airlines-flights.html" aria-label="Air Zimbabwe Flights home">
-<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4C93F5"/><stop offset="1" stop-color="#0B1F3A"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#lg)"/><path d="M10 22.5 30 11l-6 18-5-6.5-9-0z" fill="#fff"/><path d="m19 22.5 11-11.5" stroke="#0B1F3A" stroke-width="1.6" stroke-linecap="round"/></svg>
-<span><b>Air Zimbabwe <span>Flights</span></b><small>Independent Travel Agency · UK</small></span></a>
+<a class="logo" href="zimbabwe-airlines-flights.html" aria-label="Flightsfirst home"><svg class="lmark" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lfg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4C93F5"/><stop offset="1" stop-color="#0B1F3A"/></linearGradient></defs><rect x="1" y="1" width="38" height="38" rx="11" fill="url(#lfg)"/><g fill="#fff"><rect x="9" y="10" width="5" height="20" rx="1"/><rect x="9" y="10" width="15" height="5" rx="1"/><rect x="9" y="18" width="12" height="5" rx="1"/><rect x="22" y="10" width="5" height="20" rx="1"/><rect x="22" y="10" width="9" height="5" rx="1"/><rect x="22" y="18" width="9" height="5" rx="1"/></g></svg><b>flights<span>first</span></b></a>
 <nav class="nav" aria-label="Page"><a href="#fares">Fares</a><a href="#how">How it works</a><a href="#baggage">Baggage</a><a href="#flight-info">Flight info</a><a href="#faq">FAQs</a></nav>
-<a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg><span class="num">0203 981 0232</span><span class="num2" style="display:none">Call</span></a>
+<a class="phone-pill" href="tel:02039810232" aria-label="Call 0203 981 0232"><span class="av"><img src="assets/harare/agent.webp" width="38" height="38" alt=""><i></i></span><span class="pn">0203 981 0232</span></a>
 </div></header>
+<div class="brandband"><div class="wrap"><p>Air Zimbabwe Flights</p></div></div>
 
 <main>
 <section class="hero" style="padding:0">
+<div class="wrap">
+<div class="copy">
+<div class="onimg">
 <picture>
 <source media="(max-width:700px)" srcset="assets/harare/hero-a330-mobile.webp" width="900" height="1300">
 <img src="assets/harare/hero-a330-desktop.webp" width="1600" height="900" alt="Air Zimbabwe Airbus A330 on the runway" fetchpriority="high" decoding="async">
 </picture>
-<div class="wrap">
-<div class="copy">
 <div class="bag"><svg class="ic"><use href="#i-bag"/></svg><span><b>2 PC</b> baggage allowance · <b>23 kg</b> each</span></div>
 <h1>Book <span data-kw>Direct Flights Tickets London Gatwick to Harare, Zimbabwe (HRE)</span></h1>
+</div>
+<div class="callzone">
+<p class="route-pill">Nonstop LGW to HRE · Mon, Thu, Sat</p>
 <p class="lead">Skip the connection in Johannesburg or Addis. Air Zimbabwe flies Gatwick South to Harare nonstop in about 10 hours, and one call gets you live seats and the full price before you pay anything.</p>
+<div class="callrow">
+<div class="callbox">
+<p class="nohold">Talk to a real flight expert</p>
+<a class="bigcall" href="tel:02039810232"><span class="ph"><svg class="ic"><use href="#i-phone"/></svg></span>0203 981 0232</a>
+<p class="hl">24/7 Helpline</p>
+</div>
+<div class="from"><div class="fp"><small>Fares from</small><div class="fr"><span class="fo"><b>£490</b><i>one way</i></span><span class="fo"><b>£675</b><i>return</i></span></div><em>per person, subject to availability</em></div></div>
+</div>
 <ul class="pts">
 <li><svg class="ic"><use href="#i-check"/></svg>Nonstop every Monday, Thursday and Saturday evening</li>
 <li><svg class="ic"><use href="#i-check"/></svg>2 x 23 kg checked bags plus 10 kg cabin bag in Economy</li>
 <li><svg class="ic"><use href="#i-check"/></svg>Full price and baggage confirmed before you pay</li>
 <li><svg class="ic"><use href="#i-check"/></svg>ATOL 11038 · IATA accredited agent</li>
 </ul>
-<div class="cta">
-<div class="from"><div class="fp"><small>Fares from</small><div class="fr"><span class="fo"><b>£490</b><i>one way</i></span><span class="fo"><b>£675</b><i>return</i></span></div><em>per person, subject to availability</em></div></div>
-<a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg>Call 0203 981 0232</a>
-<a class="btn btn-line" href="#quote">Get a free quote</a>
 </div>
 </div>
 
@@ -507,7 +613,7 @@ footer .cols{grid-template-columns:1fr 1fr}
 <footer><div class="wrap">
 <div class="cols">
 <div>
-<a class="logo" href="zimbabwe-airlines-flights.html"><svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b4ec2"/><path d="M10 22.5 30 11l-6 18-5-6.5-9-0z" fill="#fff"/></svg><span><b>flights<span>first</span></b><small>Independent Travel Agency · UK</small></span></a>
+<a class="logo" href="zimbabwe-airlines-flights.html"><svg class="lmark" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lfg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4C93F5"/><stop offset="1" stop-color="#0B1F3A"/></linearGradient></defs><rect x="1" y="1" width="38" height="38" rx="11" fill="url(#lfg2)"/><g fill="#fff"><rect x="9" y="10" width="5" height="20" rx="1"/><rect x="9" y="10" width="15" height="5" rx="1"/><rect x="9" y="18" width="12" height="5" rx="1"/><rect x="22" y="10" width="5" height="20" rx="1"/><rect x="22" y="10" width="9" height="5" rx="1"/><rect x="22" y="18" width="9" height="5" rx="1"/></g></svg><span><b>flights<span>first</span></b><small>Independent Travel Agency · UK</small></span></a>
 <p>Safa &amp; Marwa Tours Ltd<br>226 Warwick Road, Sparkhill, Birmingham, B11 2NB, UK<br>Tel: <a style="display:inline" href="tel:02039810232">0203 981 0232</a></p>
 <div class="badges"><img src="assets/images/atol-badge.webp" width="56" height="56" alt="ATOL protected 11038" loading="lazy"><img src="assets/images/iata-badge.webp" width="100" height="56" alt="IATA accredited agent" loading="lazy"></div>
 </div>
@@ -522,7 +628,8 @@ footer .cols{grid-template-columns:1fr 1fr}
 </div>
 </div></footer>
 
-<div class="sticky"><a class="btn btn-blue" href="tel:02039810232"><svg class="ic"><use href="#i-phone"/></svg>Call Now 0203 981 0232</a></div>
+<div class="promo"><div class="pc"><img class="cut" src="assets/harare/agent-cutout.webp" width="220" height="179" alt="" loading="lazy"><div class="pt"><small>Call us &amp; get up to <em>30% OFF</em> on flights</small><strong>0203 981 0232</strong></div><a class="rc" href="tel:02039810232" aria-label="Call now"><svg class="ic"><use href="#i-phone"/></svg></a></div></div>
+<a class="cbtab" id="cbtab" href="#quote"><svg class="ic"><use href="#i-phone"/></svg><span>Free call back</span></a>
 
 <div id="cookieBanner" role="dialog" aria-label="Cookie notice"><p>We use cookies to improve this site and measure adverts. See our <a href="cookie-policy.html">Cookie Policy</a>.</p><div><button type="button" id="cookieDecline">Decline</button><button type="button" id="cookieAccept">Accept</button></div></div>
 
@@ -546,6 +653,6 @@ footer .cols{grid-template-columns:1fr 1fr}
 </div>
 </div>
 
-<script src="assets/harare/lp.js?v=5" defer></script>
+<script src="assets/harare/lp.js?v=7" defer></script>
 </body>
 </html>
