@@ -566,3 +566,13 @@ body.modal-open{overflow:hidden;}
 @media (max-width:480px){
   .modal-dialog{padding:22px;border-radius:16px;}
 }
+
+/* Contact fields (name/email/phone) start collapsed and expand inline once
+   the visitor picks a date - see .contact-fields-expand in script.js */
+.contact-fields-expand{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .35s ease,margin-top .45s ease;}
+.contact-fields-expand.expanded{max-height:600px;opacity:1;margin-top:2px;}
+
+/* Urgency badge — used in hero and above the airline comparison grid */
+.urgency-badge{display:flex;align-items:center;gap:7px;background:#FFF4E5;border:1px solid rgba(242,169,59,.4);color:#9A5B00;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:600;margin:0 0 18px;width:fit-content;}
+.urgency-badge.centered{margin:0 auto 22px;}
+.urgency-badge .icon{color:#D97B06;flex:none;}

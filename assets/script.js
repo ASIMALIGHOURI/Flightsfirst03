@@ -234,6 +234,96 @@
     });
   }
 
+  /* ---------------- Inline contact-field expand (name/email/phone) ----------------
+     The hero form only shows route + dates up front. As soon as the visitor
+     picks a date, the name/email/phone section expands inline below it —
+     no popup, everything stays in the same form/card. */
+  function initContactExpand() {
+    document.querySelectorAll(".contact-fields-expand").forEach(function (panel) {
+      var form = panel.closest("form");
+      if (!form) return;
+      var departInput = form.querySelector('input[name="depart_date"]');
+      var returnInput = form.querySelector('input[name="return_date"]');
+
+      function expand() {
+        if (panel.classList.contains("expanded")) return;
+        panel.classList.add("expanded");
+        var firstField = panel.querySelector('input[name="name"]');
+        if (firstField) firstField.focus({ preventScroll: false });
+      }
+
+      if (departInput) departInput.addEventListener("change", expand);
+      if (returnInput) returnInput.addEventListener("change", expand);
+    });
+  }
+
+  /* ---------------- Exit-intent callback modal ---------------- */
+  function initExitIntent() {
+    var overlay = document.getElementById("exitModal");
+    if (!overlay) return;
+    var closeBtn = overlay.querySelector(".modal-close");
+    var armed = false;
+    var shown = false;
+
+    function alreadyConverted() {
+      return document.querySelectorAll(".form-success.active").length > 0;
+    }
+    function alreadySeen() {
+      try {
+        return sessionStorage.getItem("ff_exit_shown") === "1";
+      } catch (e) {
+        return false;
+      }
+    }
+    function markSeen() {
+      try {
+        sessionStorage.setItem("ff_exit_shown", "1");
+      } catch (e) {}
+    }
+
+    function openModal() {
+      if (shown || alreadySeen() || alreadyConverted()) return;
+      shown = true;
+      markSeen();
+      overlay.classList.add("open");
+      document.body.classList.add("modal-open");
+      var firstInput = overlay.querySelector('input[name="name"]');
+      if (firstInput) firstInput.focus();
+    }
+    function closeModal() {
+      overlay.classList.remove("open");
+      document.body.classList.remove("modal-open");
+    }
+
+    // Give the visitor real time on the page (and at least one genuine
+    // mouse movement) before arming the listener, so a stray event right
+    // after load can never count as "leaving".
+    var hasMoved = false;
+    document.addEventListener("mousemove", function () {
+      hasMoved = true;
+    });
+    setTimeout(function () {
+      armed = true;
+    }, 8000);
+
+    // Fires exactly once when the pointer truly leaves the page's viewport
+    // (does not bubble, unlike mouseout — far fewer false positives) and
+    // only counts it if the cursor is exiting upward, toward the browser
+    // chrome/tabs, which is the actual "about to leave" signal.
+    document.documentElement.addEventListener("mouseleave", function (e) {
+      if (!armed || !hasMoved) return;
+      if (e.clientY <= 0) openModal();
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && overlay.classList.contains("open")) closeModal();
+    });
+  }
+
   /* ---------------- Discounted fare modal ---------------- */
   function initFareModal() {
     var overlay = document.getElementById("fareModal");
@@ -563,11 +653,12 @@
       containers.forEach(requestTurnstileRender);
     }
 
-    // The fare modal's widget lives inside a hidden (display:none) overlay,
-    // so it may never intersect the viewport via the observer above. Render
-    // it explicitly the moment the modal opens instead.
-    var overlay = document.getElementById("fareModal");
-    if (overlay) {
+    // Modal widgets live inside a hidden (display:none) overlay, so they may
+    // never intersect the viewport via the observer above. Render each one
+    // explicitly the moment its modal opens instead.
+    ["fareModal", "exitModal"].forEach(function (id) {
+      var overlay = document.getElementById(id);
+      if (!overlay) return;
       var modalObserver = new MutationObserver(function () {
         if (overlay.classList.contains("open")) {
           var modalWidget = overlay.querySelector(".cf-turnstile");
@@ -575,7 +666,20 @@
         }
       });
       modalObserver.observe(overlay, { attributes: true, attributeFilter: ["class"] });
-    }
+    });
+
+    // The inline contact-fields-expand panel is display:none-equivalent
+    // (0 height, hidden overflow) until expanded, so its Turnstile widget
+    // may never intersect the viewport either. Render it once expanded.
+    document.querySelectorAll(".contact-fields-expand").forEach(function (panel) {
+      var expandObserver = new MutationObserver(function () {
+        if (panel.classList.contains("expanded")) {
+          var widget = panel.querySelector(".cf-turnstile");
+          if (widget) requestTurnstileRender(widget);
+        }
+      });
+      expandObserver.observe(panel, { attributes: true, attributeFilter: ["class"] });
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -589,6 +693,8 @@
     initTripType();
     initDatePickers();
     initFareModal();
+    initContactExpand();
+    initExitIntent();
     initTurnstile();
     initCookieBanner();
     initHeaderScroll();
