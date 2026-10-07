@@ -576,3 +576,6 @@ body.modal-open{overflow:hidden;}
 .urgency-badge{display:flex;align-items:center;gap:7px;background:#FFF4E5;border:1px solid rgba(242,169,59,.4);color:#9A5B00;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:600;margin:0 0 18px;width:fit-content;}
 .urgency-badge.centered{margin:0 auto 22px;}
 .urgency-badge .icon{color:#D97B06;flex:none;}
+
+/* always show contact fields (original form) */
+.contact-fields-expand{max-height:none!important;overflow:visible!important;opacity:1!important;margin-top:2px}
