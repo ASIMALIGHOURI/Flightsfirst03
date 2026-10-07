@@ -118,6 +118,13 @@ if(cbt){var qd=$('#quote');
     cbt.classList.toggle('show',vis);}
   window.addEventListener('scroll',upd,{passive:true});upd();}
 
+
+/* mobile: hide header on scroll down, show on scroll up */
+(function(){var h=$('header.top');if(!h)return;var last=window.scrollY||0,tick=false;
+function upd(){tick=false;var y=window.scrollY||0;if(window.innerWidth>700||y<80){h.classList.remove('hide-up');last=y;return}
+h.classList.toggle('hide-up',y>=80);last=y}
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});})();
+
 /* cookie notice */
 var cb=$('#cookieBanner');
 if(cb){
