@@ -110,6 +110,14 @@ document.documentElement.addEventListener('mouseleave',function(e){
   if(armed&&moved&&e.clientY<=0&&window.innerWidth>900)showPop();
 });
 
+/* free call back tab: show after first scroll, hide while the form is on screen */
+var cbt=$('#cbtab');
+if(cbt){var qd=$('#quote');
+  function upd(){var y=window.scrollY||0,vis=y>500;
+    if(vis&&qd){var r=qd.getBoundingClientRect();if(r.top<innerHeight*0.85&&r.bottom>innerHeight*0.15)vis=false;}
+    cbt.classList.toggle('show',vis);}
+  window.addEventListener('scroll',upd,{passive:true});upd();}
+
 /* cookie notice */
 var cb=$('#cookieBanner');
 if(cb){
