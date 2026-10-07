@@ -16,7 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" href="assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/archivo-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="stylesheet" href="assets/style.min.css?v=12">
+<link rel="stylesheet" href="assets/style.min.css?v=13">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -25,7 +25,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "alternateName": "Flightsfirst.co.uk",
   "url": "https://www.flightsfirst.co.uk/",
   "logo": "https://www.flightsfirst.co.uk/assets/images/favicon.svg",
-  "image": "https://www.flightsfirst.co.uk/assets/images/atol-badge.png",
   "telephone": "+442039810232",
   "email": "info@luxfly.co.uk",
   "address": {
@@ -36,14 +35,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "addressCountry": "GB"
   },
   "areaServed": "GB",
-  "parentOrganization": {
-    "@type": "Organization",
-    "name": "Safa & Marwa Tours Ltd"
-  },
-  "hasCredential": [
-    { "@type": "EducationalOccupationalCredential", "credentialCategory": "ATOL Licence", "identifier": "11038" },
-    { "@type": "EducationalOccupationalCredential", "credentialCategory": "IATA Appointed Agent", "identifier": "91201574" }
-  ],
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -170,21 +161,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="topbar">
   <div class="container">
     <div class="topbar-left">
-      <div class="corner-credentials">
-        <div class="atol-corner-badge">
-          <picture>
-            <source srcset="assets/images/atol-badge.webp" type="image/webp">
-            <img src="assets/images/atol-badge.png" alt="ATOL Protected" width="56" height="56" decoding="async">
-          </picture>
-          <span class="atol-corner-text">ATOL 11038</span>
-        </div>
-        <div class="iata-corner-badge">
-          <picture>
-            <source srcset="assets/images/iata-badge.webp" type="image/webp">
-            <img src="assets/images/iata-badge.png" alt="IATA Accredited Agency" width="100" height="56" decoding="async">
-          </picture>
-        </div>
-      </div>
+      
     </div>
     <div class="topbar-center">Open 24/7</div>
     <div class="topbar-right">
@@ -344,23 +321,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="footer-legalbar">
       <span>© <span id="year"></span> Flightsfirst.co.uk. All rights reserved.</span>
-      <div class="corner-credentials">
-        <div class="atol-corner-badge">
-          <picture>
-            <source srcset="assets/images/atol-badge.webp" type="image/webp">
-            <img src="assets/images/atol-badge.png" alt="ATOL Protected" width="56" height="56" decoding="async">
-          </picture>
-          <span class="atol-corner-text">ATOL 11038</span>
-        </div>
-        <div class="iata-corner-badge">
-          <picture>
-            <source srcset="assets/images/iata-badge.webp" type="image/webp">
-            <img src="assets/images/iata-badge.png" alt="IATA Accredited Agency" width="100" height="56" decoding="async">
-          </picture>
-        </div>
-      </div>
+      
     </div>
-    <p class="footer-legal-text">Flightsfirst operates under Safa & Marwa Tours Ltd, registered in the UK, of 226 Warwick Road, Sparkhill, Birmingham, B11 2NB. Safa & Marwa Tours Ltd is an ATOL &amp; IATA accredited company, holding Air Travel Organiser's Licence (ATOL) number 11038, issued by the Civil Aviation Authority, and IATA accreditation as a recognised travel agency. Where a flight-inclusive package is protected by our ATOL, you will receive an ATOL Certificate confirming what is protected, and you can find out more about ATOL protection at <a href="https://www.caa.co.uk" target="_blank" rel="noopener" style="color:#B9CBE9;text-decoration:underline;">caa.co.uk</a>.</p>
+    <p class="footer-legal-text">Flightsfirst.co.uk is an independent travel agency, based at 226 Warwick Road, Sparkhill, Birmingham, B11 2NB.</p>
   </div>
 </footer>
 
@@ -384,5 +347,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="assets/script.min.js?v=10" defer></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>(function(){var h=document.querySelector('.site-header');if(!h||!window.matchMedia)return;var mq=matchMedia('(max-width:900px)'),last=window.scrollY||0,tick=false;function upd(){tick=false;var y=window.scrollY||0;if(!mq.matches||y<80||h.querySelector('.nav-open')){h.classList.remove('hide-up');last=y;return}h.classList.toggle('hide-up',y>=80);last=y}window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true})})();</script>
 </body>
 </html>
