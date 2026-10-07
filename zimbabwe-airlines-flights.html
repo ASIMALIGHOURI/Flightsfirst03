@@ -395,6 +395,71 @@ footer .cols{grid-template-columns:1fr 1fr}
 #cookieBanner{bottom:86px}
 footer{padding-bottom:120px}
 }
+
+/* ---- v8: form at first scroll, price/baggage/offer in first view ---- */
+.off30{display:flex;align-items:center;gap:8px;margin-top:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;color:#fff}
+.off30 .ic{width:18px;height:18px;flex:none;color:#8dc0ff}
+.off30 b{font-weight:800}
+.quote .sub{margin-bottom:12px}
+@media(min-width:981px){
+.hero .wrap{padding-top:26px;padding-bottom:40px;gap:44px}
+.hero h1{margin-bottom:12px}
+.callzone .lead{margin-bottom:16px;font-size:17px}
+.callrow{margin-bottom:16px}
+.pts{gap:6px}
+.quote{padding:22px}
+.hero .quote h2{font-size:21px}
+}
+@media(max-width:700px){
+.hero .wrap{display:flex;flex-direction:column;padding:0 0 26px}
+.copy,.callzone{display:contents}
+.onimg{order:0;min-height:250px;padding:14px 16px}
+.onimg .bag{margin-bottom:10px}
+.hero h1{font-size:clamp(23px,6.8vw,29px)}
+.callrow{order:1;margin:14px 16px 12px;gap:12px}
+.nohold{font-size:17px;margin-bottom:8px}
+.bigcall{font-size:clamp(26px,8vw,31px);padding:10px 18px 10px 10px}
+.bigcall .ph{width:46px;height:46px}
+.hl{font-size:16px;margin-top:8px}
+.fp{padding:10px 12px}
+.fp .fo{padding:8px 10px}
+.off30{background:var(--sky);border-color:var(--line);color:var(--navy);justify-content:center;font-size:13.5px;text-align:left}
+.off30 .ic{color:var(--blue)}
+.quote{order:2;margin:0 16px}
+.route-pill{order:3;margin:16px 16px 14px;align-self:stretch}
+.callzone .lead{order:4;margin:0 16px 14px}
+.callzone .pts{order:5;margin:0 16px 6px}
+}
+
+.fp .off30 b,.off30 b{font:800 14px/1.2 Inter,sans-serif;display:inline}
+.off30{display:flex}
+@media(min-width:981px){
+.hero .wrap{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px}
+.hero h1{font-size:clamp(30px,3.2vw,40px);line-height:1.08}
+.callzone .lead{font-size:16px;line-height:1.5;margin-bottom:14px}
+.callrow{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:18px;margin-bottom:14px}
+.bigcall{font-size:26px;padding:9px 22px 9px 9px}
+.bigcall .ph{width:44px;height:44px}
+.fp .fo b{font-size:24px}
+.fp .fo{padding:6px 12px}
+.fp small{margin-bottom:3px}
+.fp em{margin-top:5px}
+.off30{margin-top:7px;padding:6px 10px;font-size:13px}
+.callbox{grid-column:1;grid-row:1}
+.callrow .from{grid-column:2;grid-row:1}
+.pts li{font-size:15px}
+.quote{padding:20px}
+}
+
+@media(max-width:700px){
+.fp .off30{background:var(--sky);border:1px solid var(--line);color:var(--navy)!important;opacity:1;justify-content:center}
+.fp .off30 b{color:var(--blue)}
+.onimg{min-height:228px}
+.nohold{font-size:16px;margin-bottom:6px}
+.fp small{display:none}
+.fp .fo b{font-size:24px}
+.callrow{margin-top:12px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 <script type="application/ld+json">
@@ -454,7 +519,7 @@ footer{padding-bottom:120px}
 <a class="bigcall" href="tel:02039810232"><span class="ph"><svg class="ic"><use href="#i-phone"/></svg></span>0203 981 0232</a>
 <p class="hl">24/7 Helpline</p>
 </div>
-<div class="from"><div class="fp"><small>Fares from</small><div class="fr"><span class="fo"><b>£490</b><i>one way</i></span><span class="fo"><b>£675</b><i>return</i></span></div><em>per person, subject to availability</em></div></div>
+<div class="from"><div class="fp"><small>Fares from</small><div class="fr"><span class="fo"><b>£490</b><i>one way</i></span><span class="fo"><b>£675</b><i>return</i></span></div><em>per person, subject to availability</em><span class="off30"><svg class="ic"><use href="#i-badge"/></svg>Call now for up to <b>30% off</b> selected fares</span></div></div>
 </div>
 <ul class="pts">
 <li><svg class="ic"><use href="#i-check"/></svg>Nonstop every Monday, Thursday and Saturday evening</li>
@@ -653,6 +718,6 @@ footer{padding-bottom:120px}
 </div>
 </div>
 
-<script src="assets/harare/lp.js?v=7" defer></script>
+<script src="assets/harare/lp.js?v=8" defer></script>
 </body>
 </html>
