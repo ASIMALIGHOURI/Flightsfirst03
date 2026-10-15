@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var POPUP_DELAY_MS=4000, EXIT_ARM_MS=8000, SITEKEY='0x4AAAAAAEKPlmkjvjqjjmRr';
+var POPUP_DELAY_MS=800, EXIT_ARM_MS=8000, SITEKEY='0x4AAAAAAEKPlmkjvjqjjmRr';
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
@@ -100,7 +100,7 @@ document.addEventListener('keydown',function(e){
   }
 });
 var interacted=false,due=false;
-function tryShow(){if(due&&interacted)showPop();}
+function tryShow(){if(due)showPop();}
 ['pointerdown','pointermove','touchstart','scroll','keydown'].forEach(function(e){window.addEventListener(e,function(){interacted=true;tryShow()},{once:true,passive:true})});
 setTimeout(function(){due=true;tryShow()},POPUP_DELAY_MS);
 var armed=false,moved=false;
