@@ -8,8 +8,8 @@ function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);sessionSt
 
 /* DTR: swap keyword in H1 */
 try{
-  var kw=new URLSearchParams(location.search).get('keywords');
-  if(kw){kw=kw.replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,90);
+  var qs=new URLSearchParams(location.search);var kw=qs.get('keywords')||qs.get('keyword')||qs.get('kw');
+  if(kw){kw=kw.replace(/[<>]/g,'').replace(/\s+/g,' ').trim().slice(0,90);if(kw===kw.toLowerCase())kw=kw.replace(/\b[a-z]/g,function(c){return c.toUpperCase()});
     if(kw){$$('[data-kw]').forEach(function(n){n.textContent=kw});}}
   var g=new URLSearchParams(location.search).get('gclid');
   var ms=new URLSearchParams(location.search).get('msclkid');if(ms&&$('#msclkid'))$('#msclkid').value=ms.slice(0,80);
