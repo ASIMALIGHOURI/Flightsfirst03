@@ -38,6 +38,7 @@
   /* 4. conversion events (create matching Event goals in Microsoft Advertising) */
   function ev(action, label) {
     w.uetq.push("event", action, { event_category: "contact", event_label: label || w.location.pathname });
+    try { (w.dataLayer = w.dataLayer || []).push({ event: action, event_label: label || w.location.pathname }); } catch (e) {}
   }
   d.addEventListener("click", function (e) {
     var a = e.target && e.target.closest ? e.target.closest("a[href]") : null; if (!a) return;

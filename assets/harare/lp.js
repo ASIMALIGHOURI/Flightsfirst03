@@ -23,6 +23,7 @@ var dep=$('#depart'),ret=$('#return'),panel=$('#more'),form=$('#quoteForm');
 var t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());
 var today=t.toISOString().slice(0,10);
 dep.min=today;ret.min=today;
+['click','focus'].forEach(function(ev){[dep,ret].forEach(function(el){el.addEventListener(ev,function(){try{if(!this.disabled&&this.showPicker)this.showPicker()}catch(e){}})})});
 function open(){
   if(panel.classList.contains('open'))return;
   panel.classList.add('open');panel.removeAttribute('inert');
