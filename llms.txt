@@ -1,0 +1,19 @@
+# Flightsfirst
+
+> Flightsfirst (flightsfirst.co.uk) is an independent UK travel agency that books flights by phone. We are not an airline. Agents check live fares, confirm the full price (fare, taxes and booking fee) before payment and issue the e-ticket.
+
+Phone: 0203 981 0232 (24/7) | WhatsApp: 07848 427255 | Email: info@flightsfirst.co.uk
+
+## Airline pages
+- [Turkish Airlines flights and tickets](https://www.flightsfirst.co.uk/turkish-airlines-flights): Economy and Business to Istanbul and 10 top destinations
+- [Emirates flights and tickets](https://www.flightsfirst.co.uk/emirates-airlines-flights): Dubai, India, Asia and Africa from UK airports
+- [Etihad Airways flights and tickets](https://www.flightsfirst.co.uk/etihad-airways-flights)
+- [Vietnam Airlines flights and tickets](https://www.flightsfirst.co.uk/vietnam-airlines-flights)
+- [Ethiopian Airlines flights and tickets](https://www.flightsfirst.co.uk/ethiopian-airlines-flights)
+- [Uganda Airlines flights and tickets](https://www.flightsfirst.co.uk/uganda-airlines-flights)
+
+## Company
+- [Who we are](https://www.flightsfirst.co.uk/who-we-are)
+- [Contact and manage booking](https://www.flightsfirst.co.uk/contact-us)
+- [Terms and conditions](https://www.flightsfirst.co.uk/terms-conditions)
+- [Cancellation and refund policy](https://www.flightsfirst.co.uk/cancellation-refund-policy)
