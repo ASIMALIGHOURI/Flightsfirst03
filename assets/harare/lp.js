@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var POPUP_DELAY_MS=800, EXIT_ARM_MS=8000, SITEKEY='0x4AAAAAAEKPlmkjvjqjjmRr';
+var POPUP_DELAY_MS=0, EXIT_ARM_MS=8000, SITEKEY='0x4AAAAAAEKPlmkjvjqjjmRr';
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
@@ -56,7 +56,6 @@ function loadTurnstile(){
 }
 
 $('#sendBtn').disabled=false;
-try{var nx=document.createElement('input');nx.type='hidden';nx.name='_next';nx.value=location.href.split('#')[0];form.appendChild(nx);}catch(e){}
 /* submit */
 var done=false;
 form.addEventListener('submit',function(e){
@@ -66,15 +65,17 @@ form.addEventListener('submit',function(e){
   if($('input[name=_honey]').value)return;
   var b=$('#sendBtn');b.disabled=true;b.textContent='Sending…';
   var fd=new FormData(form);
+  var gone=false;function goThanks(){if(gone)return;gone=true;try{sessionStorage.setItem('ff_back',location.href)}catch(e){}location.href='thank-you.html?from='+encodeURIComponent(location.pathname)}
   success();
-  fetch('https://formsubmit.co/ajax/info@luxfly.co.uk',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+  setTimeout(goThanks,4000);
+  fetch('https://formsubmit.co/ajax/info@luxfly.co.uk',{method:'POST',body:fd,headers:{Accept:'application/json'},keepalive:true})
   .then(function(r){if(!r.ok)throw 0;return r.json()})
-  .then(function(d){if(d&&(d.success===false||d.success==='false'))throw 0;})
+  .then(function(d){if(d&&(d.success===false||d.success==='false'))throw 0;setTimeout(goThanks,600)})
   .catch(function(){try{
     var fr=document.createElement('iframe');fr.name='ffhid';fr.style.display='none';document.body.appendChild(fr);
     var f2=document.createElement('form');f2.method='POST';f2.action='https://formsubmit.co/info@luxfly.co.uk';f2.target='ffhid';f2.style.display='none';
     fd.forEach(function(v,k){if(typeof v!=='string')return;var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f2.appendChild(i)});
-    document.body.appendChild(f2);f2.submit();
+    document.body.appendChild(f2);f2.submit();setTimeout(goThanks,1500);
   }catch(x){var o=document.querySelector('#quoteForm .ok');if(o){var p=document.createElement('p');p.style.cssText='margin-top:10px;font-weight:700';p.innerHTML='We could not confirm your request. Please call <a href="tel:02039810232">0203 981 0232</a>.';o.appendChild(p);}}});
 });
 function success(){
