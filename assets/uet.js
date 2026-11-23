@@ -51,4 +51,20 @@
     var f = e.target; if (!f || f.__uetSent) return;
     if (f.tagName === "FORM" && (f.id === "quoteForm" || /formsubmit\.co/.test(f.action || ""))) { f.__uetSent = true; ev("lead_form_submit"); }
   }, true);
+  /* 5. Microsoft Clarity (project zi7p1vsfi4), loaded after page load, consent aware */
+  function loadClarity() {
+    if (w.__clLoaded) return; w.__clLoaded = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(w, d, "clarity", "script", "zi7p1vsfi4");
+    var g = stored() === "accepted" ? "granted" : "denied";
+    try { w.clarity("consentv2", { ad_Storage: g, analytics_Storage: g }); } catch (e) {}
+  }
+  if (d.readyState === "complete") loadClarity(); else w.addEventListener("load", loadClarity);
+  d.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target : null; if (!t) return;
+    if (t.closest("#cookieAccept")) { try { w.clarity("consentv2", { ad_Storage: "granted", analytics_Storage: "granted" }); } catch (x) {} }
+  }, true);
 })(window, document);
