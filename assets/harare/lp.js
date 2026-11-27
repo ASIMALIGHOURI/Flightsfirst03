@@ -95,8 +95,10 @@ function showPop(){
 function closePop(){
   if(pop.hidden)return;pop.classList.remove('in');document.body.classList.remove('lock');
   setTimeout(function(){pop.hidden=true},200);
-  if(lastFocus&&lastFocus.focus)try{lastFocus.focus()}catch(e){}
+  if(window.innerWidth<=900){setTimeout(goForm,230)}
+  else if(lastFocus&&lastFocus.focus)try{lastFocus.focus()}catch(e){}
 }
+function goForm(){var q=$('#quote');if(!q)return;var y=q.getBoundingClientRect().top+(window.scrollY||0)-8;window.scrollTo(0,Math.max(0,y))}
 $$('[data-close]',pop).forEach(function(n){n.addEventListener('click',closePop)});
 pop.addEventListener('click',function(e){if(e.target===pop)closePop()});
 $('#popCb').addEventListener('click',function(){closePop();var q=$('#quote');if(q)q.scrollIntoView({behavior:'smooth',block:'start'});});
@@ -111,8 +113,8 @@ document.addEventListener('keydown',function(e){
 });
 var interacted=false,due=false;
 function tryShow(){if(due)showPop();}
-['pointerdown','pointermove','touchstart','scroll','keydown'].forEach(function(e){window.addEventListener(e,function(){interacted=true;tryShow()},{once:true,passive:true})});
-setTimeout(function(){due=true;tryShow()},POPUP_DELAY_MS);
+var rd=$('#return');
+if(rd){var rt;['change','input'].forEach(function(ev){rd.addEventListener(ev,function(){if(!rd.value)return;clearTimeout(rt);rt=setTimeout(function(){due=true;showPop()},500)})})}
 var armed=false,moved=false;
 document.addEventListener('mousemove',function(){moved=true},{once:true});
 setTimeout(function(){armed=true},EXIT_ARM_MS);

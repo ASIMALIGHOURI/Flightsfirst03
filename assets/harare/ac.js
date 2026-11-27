@@ -46,9 +46,9 @@
     var ul=document.createElement('ul');ul.className='ac-list';ul.setAttribute('role','listbox');ul.hidden=true;
     var id='ac'+Math.random().toString(36).slice(2,7);ul.id=id;wrap.appendChild(ul);
     inp.setAttribute('role','combobox');inp.setAttribute('aria-autocomplete','list');inp.setAttribute('aria-expanded','false');inp.setAttribute('aria-controls',id);inp.setAttribute('autocomplete','off');
-    var items=[],act=-1;
-    function close(){ul.hidden=true;inp.setAttribute('aria-expanded','false');act=-1}
-    function pick(i){var a=items[i];if(!a)return;inp.value=a.v;close();inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}))}
+    var items=[],act=-1,picking=false,tok=0;
+    function close(){tok++;ul.hidden=true;inp.setAttribute('aria-expanded','false');act=-1}
+    function pick(i){var a=items[i];if(!a)return;inp.value=a.v;close();picking=true;try{inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}))}finally{picking=false}close()}
     function paint(){
       ul.innerHTML='';
       items.forEach(function(a,i){
@@ -62,7 +62,9 @@
       ul.hidden=!items.length;inp.setAttribute('aria-expanded',String(!!items.length));
     }
     function run(showAll){
+      if(picking)return;var my=++tok;
       load(function(){
+        if(my!==tok)return;
         var v=inp.value;
         if(showAll&&/\([A-Z]{3}\)\s*$/.test(v))v='';
         items=v?search(v,isFrom):(isFrom?['LHR','LGW','MAN','BHX','EDI','GLA','STN','LTN']:['DXB','IST','DEL','BOM','ISB','LHE','LOS','JNB']).map(function(c){return DATA.filter(function(a){return a.i===c})[0]}).filter(Boolean);
