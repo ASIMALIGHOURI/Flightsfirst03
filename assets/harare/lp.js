@@ -29,13 +29,14 @@ function open(){
   panel.classList.add('open');panel.removeAttribute('inert');
   loadTurnstile();
 }
+function oneWay(){var r=$('input[name=trip]:checked');return !!r&&r.value==='One way'}
 dep.addEventListener('change',function(){
-  if(dep.value){ret.min=dep.value;if(ret.value&&ret.value<dep.value)ret.value='';open();}
+  if(dep.value){ret.min=dep.value;if(ret.value&&ret.value<dep.value)ret.value='';if(oneWay())open();}
 });
 ret.addEventListener('change',function(){if(ret.value)open();});
 $$('input[name=trip]').forEach(function(r){r.addEventListener('change',function(){
   var one=r.value==='One way'&&r.checked;
-  if(r.checked){ret.disabled=one;ret.closest('.fld').classList.toggle('off',one);if(one)ret.value='';}
+  if(r.checked){ret.disabled=one;ret.closest('.fld').classList.toggle('off',one);if(one){ret.value='';if(dep.value)open();}}
 });});
 
 /* turnstile */
@@ -58,8 +59,16 @@ function loadTurnstile(){
 $('#sendBtn').disabled=false;
 /* submit */
 var done=false;
+form.noValidate=true;
 form.addEventListener('submit',function(e){
   e.preventDefault();
+  var mg=$('#msg');
+  if(!dep.value){mg.textContent='Please choose your departure date.';try{dep.focus()}catch(x){}return;}
+  if(!oneWay()&&!ret.value){mg.textContent='Please choose your return date, then add your contact details.';try{ret.focus()}catch(x){}return;}
+  if(!panel.classList.contains('open'))open();
+  var nm=$('input[name=name]',form),em=$('input[name=email]',form);
+  if(!nm.value.trim()){mg.textContent='Please enter your full name.';nm.focus();return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())){mg.textContent='Please enter a valid email address.';em.focus();return;}
   var ph=$('#phone').value.replace(/[^\d+]/g,'');
   if(ph.length<9){$('#phone').focus();$('#msg').textContent='Please enter a valid phone number so we can call you back.';return;}
   if($('input[name=_honey]').value)return;
@@ -79,7 +88,7 @@ form.addEventListener('submit',function(e){
   }catch(x){var o=document.querySelector('#quoteForm .ok');if(o){var p=document.createElement('p');p.style.cssText='margin-top:10px;font-weight:700';p.innerHTML='We could not confirm your request. Please call <a href="tel:02039810232">0203 981 0232</a>.';o.appendChild(p);}}});
 });
 function success(){
-  done=true;ss('hre_popup','1');
+  done=true;ss('hre_done','1');
   form.innerHTML='<div class="ok" role="status"><svg class="ic"><use href="#i-check"/></svg><h3>Request received</h3><p>A flight expert will call you back shortly. Prefer to talk now? Call <a href="tel:02039810232">0203 981 0232</a>.</p></div>';
   closePop();
 }
@@ -87,8 +96,8 @@ function success(){
 /* popup */
 var pop=$('#pop'),lastFocus=null,shown=false;
 function showPop(){
-  if(shown||done||ss('hre_popup'))return;
-  shown=true;ss('hre_popup','1');lastFocus=document.activeElement;
+  if(shown||done||ss('hre_done'))return;
+  shown=true;lastFocus=document.activeElement;
   pop.hidden=false;document.body.classList.add('lock');
   requestAnimationFrame(function(){pop.classList.add('in');var c=$('.pop-call',pop);if(c)c.focus();});
 }
@@ -113,8 +122,7 @@ document.addEventListener('keydown',function(e){
 });
 var interacted=false,due=false;
 function tryShow(){if(due)showPop();}
-var rd=$('#return');
-if(rd){var rt;['change','input'].forEach(function(ev){rd.addEventListener(ev,function(){if(!rd.value)return;clearTimeout(rt);rt=setTimeout(function(){due=true;showPop()},500)})})}
+due=true;showPop();
 var armed=false,moved=false;
 document.addEventListener('mousemove',function(){moved=true},{once:true});
 setTimeout(function(){armed=true},EXIT_ARM_MS);
